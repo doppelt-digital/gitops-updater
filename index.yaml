@@ -13,6 +13,16 @@ entries:
     version: 1.0.0
   gitops-updater:
   - apiVersion: v2
+    appVersion: 1.0.6
+    created: "2024-12-08T17:44:43.53176113Z"
+    description: GitOps Image Updater
+    digest: 02bcc4755041b01e6abfefaed21d5eef63bff1136138d8c294dbdf4f3c56a152
+    name: gitops-updater
+    type: application
+    urls:
+    - https://github.com/doppelt-digital/gitops-updater/releases/download/gitops-updater-1.0.6/gitops-updater-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     appVersion: 1.0.5
     created: "2024-12-08T17:22:48.509879424Z"
     description: GitOps Image Updater
@@ -72,4 +82,4 @@ entries:
     urls:
     - https://github.com/doppelt-digital/gitops-updater/releases/download/gitops-updater-1.0.0/gitops-updater-1.0.0.tgz
     version: 1.0.0
-generated: "2024-12-08T17:22:48.509902888Z"
+generated: "2024-12-08T17:44:43.531792969Z"
