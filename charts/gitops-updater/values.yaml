@@ -1,6 +1,6 @@
 image:
-  repository: "my-registry"
-  tag: "main:latest"
+  repository: "doppeltdigital/gitops-updater"
+  tag: "main"
 ingress:
   clusterIssuer: "letsencrypt-prod"
   className: "nginx"
