@@ -1,5 +1,5 @@
 image:
-  repository: "doppeltdigital/gitops-updater"
+  repository: "docker.io/doppeltdigital/gitops-updater"
   tag: "main"
 ingress:
   clusterIssuer: "letsencrypt-prod"
