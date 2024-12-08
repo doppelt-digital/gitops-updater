@@ -30,7 +30,7 @@ export class GitService {
         }
 
         // Update the image tag in the values file
-        const command = `yq -i e '.${currentConfiguration.environment.values_file}|="${newImageTag}"' ${absoluteValuesPath}`;
+        const command = `yq -i e '.${currentConfiguration.project.yaml_key}|="${newImageTag}"' ${absoluteValuesPath}`;
         const output = shell.exec(command);
         if (output.code !== 0) {
             throw new Error(`Failed to update image tag in values file: ${output.stderr}`);
