@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "gitops-image-updater"
+  name: "gitops-updater"
   annotations:
     cert-manager.io/cluster-issuer: "{{ .Values.ingress.clusterIssuer }}"
 spec:
@@ -21,7 +21,7 @@ spec:
             pathType: "Prefix"
             backend:
               service:
-                name: "gitops-image-updater"
+                name: "gitops-updater"
                 port:
                   number: 3000
     {{- end }}

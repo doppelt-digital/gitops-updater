@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "gitops-image-updater"
+  name: "gitops-updater"
 spec:
   selector:
     matchLabels:
-      app: "gitops-image-updater"
+      app: "gitops-updater"
   replicas: 1
   template:
     metadata:
       labels:
-        app: "gitops-image-updater"
+        app: "gitops-updater"
     spec:
-      serviceAccountName: "gitops-image-updater"
+      serviceAccountName: "gitops-updater"
       containers:
-        - name: "gitops-image-updater"
+        - name: "gitops-updater"
           image: "{{ .Values.image.repository }}/{{ .Values.image.tag }}"
           envFrom:
             - configMapRef:
-                name: "gitops-image-updater-configuration"
+                name: "gitops-updater-configuration"
           imagePullPolicy: Always
           ports:
             - name: http

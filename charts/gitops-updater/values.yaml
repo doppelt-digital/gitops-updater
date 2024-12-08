@@ -5,7 +5,7 @@ ingress:
   clusterIssuer: "letsencrypt-prod"
   className: "nginx"
   hosts:
-    - host: "gitops-image-updater.my-host.com"
+    - host: "gitops-updater.my-host.com"
 configuration:
   # This configuration can be used if you want to update the image tag on a helm chart in a gitops repository
   gitops_configuration:
