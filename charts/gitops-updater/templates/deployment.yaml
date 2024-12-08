@@ -13,9 +13,17 @@ spec:
         app: "gitops-updater"
     spec:
       serviceAccountName: "gitops-updater"
+      volumes:
+        - name: configuration-volume
+          configMap:
+            name: gitops-updater-configuration
       containers:
         - name: "gitops-updater"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          volumeMounts:
+            - mountPath: /app/configuration.json
+              name: configuration-volume
+              subPath: json_configuration
           envFrom:
             - configMapRef:
                 name: "gitops-updater-configuration"

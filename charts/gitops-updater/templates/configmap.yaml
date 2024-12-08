@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: gitops-updater-configuration
 data:
-  config.json: {{ .Values.configuration | toJson | quote }}
+  json_configuration: {{ .Values.configuration | toJson | quote }}
