@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "gitops-image-updater"
+spec:
+  selector:
+    matchLabels:
+      app: "gitops-image-updater"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: "gitops-image-updater"
+    spec:
+      serviceAccountName: "gitops-image-updater"
+      containers:
+        - name: "gitops-image-updater"
+          image: "{{ .Values.image.repository }}/{{ .Values.image.tag }}"
+          envFrom:
+            - configMapRef:
+                name: "gitops-image-updater-configuration"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health/liveness
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health/readiness
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6

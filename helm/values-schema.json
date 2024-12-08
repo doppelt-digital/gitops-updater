@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "image": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "Docker image repository"
+        },
+        "tag": {
+          "type": "string",
+          "description": "Docker image tag"
+        }
+      },
+      "required": ["repository", "tag"]
+    },
+    "ingress": {
+      "type": "object",
+      "properties": {
+        "clusterIssuer": {
+          "type": "string",
+          "description": "Cluster issuer for ingress"
+        },
+        "className": {
+          "type": "string",
+          "description": "Ingress class name"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "host": {
+                "type": "string",
+                "description": "Hostname for ingress"
+              }
+            },
+            "required": ["host"]
+          }
+        }
+      },
+      "required": ["clusterIssuer", "className", "hosts"]
+    },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "gitops_configuration": {
+          "type": "object",
+          "properties": {
+            "repositories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the repository"
+                  },
+                  "default_branch": {
+                    "type": "string",
+                    "description": "Default branch of the repository"
+                  },
+                  "git_account_id": {
+                    "type": "string",
+                    "description": "Git account identifier"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Repository URL"
+                  }
+                },
+                "required": ["id", "default_branch", "git_account_id", "url"]
+              }
+            },
+            "git_accounts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the git account"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email associated with the git account"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Git username"
+                  },
+                  "access_token": {
+                    "type": "string",
+                    "description": "Access token for git operations"
+                  }
+                },
+                "required": ["id", "email", "username", "access_token"]
+              }
+            }
+          },
+          "required": ["repositories", "git_accounts"]
+        },
+        "docker_compose_configuration": {
+          "type": "object",
+          "properties": {
+            "server": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the server"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "SSH username"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "SSH password"
+                  },
+                  "port": {
+                    "type": "integer",
+                    "description": "SSH port"
+                  },
+                  "ssh_private_key": {
+                    "type": "string",
+                    "description": "SSH private key"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "Server IP address or hostname"
+                  }
+                },
+                "required": ["id", "username", "port", "address"]
+              }
+            }
+          },
+          "required": ["server"]
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique project identifier"
+              },
+              "yaml_key": {
+                "type": "string",
+                "description": "YAML key path for image tag"
+              },
+              "gitops_repo_id": {
+                "type": "string",
+                "description": "ID of the GitOps repository"
+              },
+              "docker_compose_server_id": {
+                "type": "string",
+                "description": "ID of the Docker Compose server"
+              },
+              "environments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Environment name"
+                    },
+                    "values_file": {
+                      "type": "string",
+                      "description": "Path to the values file"
+                    },
+                    "secret": {
+                      "type": "object",
+                      "properties": {
+                        "raw_value": {
+                          "type": "string",
+                          "description": "Secret value"
+                        }
+                      },
+                      "required": ["raw_value"]
+                    }
+                  },
+                  "required": ["name", "values_file", "secret"]
+                }
+              }
+            },
+            "required": ["id", "yaml_key", "gitops_repo_id", "docker_compose_server_id", "environments"]
+          }
+        }
+      },
+      "required": ["projects"],
+      "anyOf": [
+        {
+          "required": ["gitops_configuration"]
+        },
+        {
+          "required": ["docker_compose_configuration"]
+        }
+      ]
+    }
+  },
+  "required": ["image", "ingress", "configuration"]
+}
