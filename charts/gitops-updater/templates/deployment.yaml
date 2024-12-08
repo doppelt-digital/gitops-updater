@@ -15,7 +15,7 @@ spec:
       serviceAccountName: "gitops-updater"
       containers:
         - name: "gitops-updater"
-          image: "{{ .Values.image.repository }}/{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           envFrom:
             - configMapRef:
                 name: "gitops-updater-configuration"
