@@ -52,6 +52,7 @@ app.post('/api/v1/update-image-tag', async (req: any, res: any) => {
     logger.info("Received request to update image tag");
     try {
         const imageTagUpdateRequest: ImageTagUpdateRequestDto = req.body;
+        console.log("Got request", imageTagUpdateRequest);
         const currentConfiguration = configurationService.getCurrentConfiguration(imageTagUpdateRequest);
 
         if (currentConfiguration.docker_compose_configuration != null) {
