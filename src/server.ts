@@ -51,7 +51,7 @@ app.get('/api/v1/healthz/liveness', (req, res) => {
 app.post('/api/v1/update-image-tag', async (req: any, res: any) => {
     logger.info("Received request to update image tag");
     try {
-        const imageTagUpdateRequest: ImageTagUpdateRequestDto = req.body;
+        const imageTagUpdateRequest: any = req.body;
         console.log("Got request", imageTagUpdateRequest);
         const currentConfiguration = configurationService.getCurrentConfiguration(imageTagUpdateRequest);
 
