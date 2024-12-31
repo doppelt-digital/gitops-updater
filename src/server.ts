@@ -47,6 +47,7 @@ app.get('/api/v1/healthz/liveness', (req, res) => {
     res.json({status: 'ok', message: 'Server is running.'});
 });
 
+
 app.post('/api/v1/update-image-tag', async (req: any, res: any) => {
     logger.info("Received request to update image tag");
     try {
