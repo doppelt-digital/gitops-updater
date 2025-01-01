@@ -11,7 +11,7 @@ export class GitService {
     }
 
     buildGitRemoteUrl(gitCredentials: GitCredentials, gitRepo: GitopsRepository): string {
-        return `https://oauth2:${gitCredentials.access_token}@${gitRepo.url}`;
+        return `https://${gitCredentials.username}:${gitCredentials.access_token}@${gitRepo.url}`;
     }
 
     async updateImageTag(currentConfiguration: CurrentConfiguration, newImageTag: string): Promise<void> {
