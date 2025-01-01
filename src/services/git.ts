@@ -43,6 +43,13 @@ export class GitService {
             throw new Error(`Failed to add changes to git: \nstdout:${gitAddOutput.stderr}\nstderr:${gitAddOutput.stderr}`);
         }
 
+        // Setup the git config
+        const gitConfigCommand = `cd ${tempGitDirectory} && git config user.email "${currentConfiguration.git_configuration!.credentials.email}" && git config user.name "${currentConfiguration.git_configuration!.credentials.username}"`;
+        const gitConfigOutput = shell.exec(gitConfigCommand);
+        if (gitConfigOutput.code !== 0) {
+            throw new Error(`Failed to set git config: \nstdout:${gitConfigOutput.stderr}\nstderr:${gitConfigOutput.stderr}`);
+        }
+
         // Commit the changes
         const gitCommitCommand = `cd ${tempGitDirectory} && git commit -m "BOT: Update ${currentConfiguration.project.id} (${currentConfiguration.environment.name}) to ${newImageTag}"`;
         const gitCommitOutput = shell.exec(gitCommitCommand);
